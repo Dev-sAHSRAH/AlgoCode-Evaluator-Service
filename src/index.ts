@@ -8,6 +8,5 @@ const app: Express = express();
 app.use("/api", apiRouter);
 
 app.listen(serverConfig.PORT, () => {
-  console.log(`Server started at PORT : ${serverConfig.PORT}`);
-  console.log("🔥");
+  console.log(`Server started at PORT : ${serverConfig.PORT} 🔥`);
 });
