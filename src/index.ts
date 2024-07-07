@@ -3,10 +3,11 @@ import express, { Express } from "express";
 
 import serverAdapter from "./config/bullBoard.config";
 import serverConfig from "./config/server.config";
-import runPython from "./containers/runPythonDocker";
-// import sampleProducer from "./producers/sampleProducer";
+import submissionQueueProducer from "./producers/submissionQueueProducer";
 import apiRouter from "./routes";
+import { submission_queue } from "./utils/constants";
 import sampleWorker from "./workers/sampleWorker";
+import SubmissionWorker from "./workers/submissionWorker";
 
 const app: Express = express();
 app.use(bodyParser.urlencoded());
@@ -21,13 +22,17 @@ app.listen(serverConfig.PORT, () => {
   console.log(`BullBoard is running at ${serverConfig.PORT}/admin/queues`);
 
   sampleWorker("SampleQueue");
+  SubmissionWorker(submission_queue);
 
   const code = `x = input()
-y = input()
-print("value of x is" ,x)
-print("value of y is" ,y)`;
+print(x)`;
 
-  const input = `100
-200`;
-  runPython(code, input);
+  const input = `10`;
+  submissionQueueProducer({
+    "1234": {
+      language: "python",
+      input,
+      code,
+    },
+  });
 });

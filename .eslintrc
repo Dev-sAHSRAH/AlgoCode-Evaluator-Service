@@ -4,7 +4,7 @@
   "parserOptions": { "ecmaVersion": 2018, "sourceType": "module" },
   "plugins": ["simple-import-sort"],
   "rules": {
-    "semi": ["error", "always"],
+    // "semi": ["error", "always"],
     "simple-import-sort/imports": "error",
     "simple-import-sort/exports": "error"
   }
